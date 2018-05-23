@@ -1,55 +1,31 @@
 import React, { Component } from 'react';
-import ListBooks from './ListBooks'
+import CurentlyReading from './CurentlyReading'
+import WantToRead from './WantToRead'
+import Read from './Read'
 import './App.css';
-
-const books = [
-  {
-    "title":"The Linux Command Line",
-    "authors":[]
-  },
-  {
-    "title":"Learning Web Development with React and Bootstrap",
-    "authors":[]
-  },
-  {
-    "title":"The Cuckoo's Calling",
-    "authors":[]
-  },
-  {
-    "title":"Lords of Finance",
-    "authors":[]
-  },
-  {
-    "title":"Needful Things",
-    "authors":[]
-  },
-  {
-    "title":"React",
-    "authors":[]
-  },
-  {
-    "title":"Satire TV",
-    "authors":[]
-  },
-]
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="header">
+        <header className="bookshelf-title">
           <h1 className="title">My Reads</h1>
         </header>
-        <section className="curently-reading">
+        <section className="shelf-title">
           <h2>Curently Reading</h2>
-          <ListBooks books={books}/>
+          <CurentlyReading />
         </section>
-        <section className="want-to-read">
+        <section className="shelf-title">
           <h2>Want to Read</h2>
+          <WantToRead />
         </section>
-        <section className="read">
+        <section className="shelf-title">
           <h2>Read</h2>
+          <Read />
         </section>
+        <div className="add-button">
+          <a></a>
+        </div>
       </div>
     );
   }

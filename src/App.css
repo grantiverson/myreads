@@ -1,4 +1,4 @@
-.header {
+.bookshelf-title {
   background-color: green;
   padding: 0;
   margin: 0;
@@ -24,7 +24,7 @@ p {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.book {
+.book-details {
   list-style-type: none;
   width: 130px;
   margin: 10px;
@@ -33,22 +33,47 @@ p {
   box-shadow: 3px 3px 5px #bbb;
   width: 128px;
   height: 170px;
+  margin-bottom: 10px;
 }
 .status-selector {
   position: relative;
-  top: -30px;
+  top: 140px;
   left: 100px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: green;
-  background-image: url('/src/icons/arrow-drop-down.svg');
+  background-image: url('./icons/arrow-drop-down.svg');
   background-size: 20px;
   background-position: center;
   background-repeat: no-repeat;
   border: none;
   box-shadow: 3px 3px 5px #bbb;
 }
+.status-selector select {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+option {
+  height: 0;
+}
 .gray-text {
   color: gray;
+}
+.add-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: green;
+  background-image: url('./icons/add.svg');
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  box-shadow: 3px 3px 5px #bbb;
 }
