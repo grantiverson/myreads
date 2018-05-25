@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CurentlyReading from './CurentlyReading'
+import CurrentlyReading from './CurrentlyReading'
 import WantToRead from './WantToRead'
 import Read from './Read'
 import './App.css';
@@ -12,8 +12,8 @@ class App extends Component {
           <h1 className="title">My Reads</h1>
         </header>
         <section className="shelf-title">
-          <h2>Curently Reading</h2>
-          <CurentlyReading />
+          <h2>Currently Reading</h2>
+          <CurrentlyReading />
         </section>
         <section className="shelf-title">
           <h2>Want to Read</h2>
@@ -24,7 +24,7 @@ class App extends Component {
           <Read />
         </section>
         <div className="add-button">
-          <a></a>
+          <a>Search</a>
         </div>
       </div>
     );

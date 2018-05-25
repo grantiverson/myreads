@@ -18,16 +18,17 @@ class Read extends Component {
   render() {
     return(
       <ul className="books-list">
-        {this.state.books.map((book, index) => (
+        {this.state.books.filter(book => book.shelf === 'read')
+        .map((book, index) => (
           <li className="book-details" key={index}>
             <div className="book-image" style={{backgroundImage: "url(" + book.imageLinks.smallThumbnail + ")"}}>
               <div className="status-selector">
-                <select>
-                  <option value="none">Move to...</option>
-                  <option value="curentlyReading">Curently Reading</option>
+                <select defaultValue="Read">
+                  <option value="none" disabled>Move to...</option>
+                  <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
-                  <option value="Read" selected="selected">Read</option>
-                  <option value="None">None</option>
+                  <option value="read">Read</option>
+                  <option value="none">None</option>
                 </select>
               </div>
             </div>

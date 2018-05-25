@@ -76,4 +76,5 @@ option {
   background-repeat: no-repeat;
   border: none;
   box-shadow: 3px 3px 5px #bbb;
+  font-size: 0;
 }

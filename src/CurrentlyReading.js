@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './utils/BooksAPI.js'
 
-class CurentlyReading extends Component {
+class CurrentlyReading extends Component {
   state = {
     books: []
   }
@@ -15,20 +15,29 @@ class CurentlyReading extends Component {
     })
   }
 
+  chooseShelf = (book) => {
+    console.log(book)
+    console.log('book.shelf:', book.shelf)
+    this.setState({
+      books: 'read'
+    })
+    console.log('changed to', book.shelf)
+  }
+
   render() {
     return(
       <ul className="books-list">
-        {console.log(this.state.books)}
-        {this.state.books.map((book, index) => (
+        {this.state.books.filter(book => book.shelf === 'currentlyReading')
+        .map((book, index) => (
           <li className="book-details" key={index}>
             <div className="book-image" style={{backgroundImage: "url(" + book.imageLinks.smallThumbnail + ")"}}>
               <div className="status-selector">
-                <select>
-                  <option value="none">Move to...</option>
-                  <option value="curentlyReading" selected="selected">Curently Reading</option>
+                <select defaultValue="currentlyReading" onChange={() => this.chooseShelf(book)}>
+                  <option value="none" disabled>Move to...</option>
+                  <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
-                  <option value="Read">Read</option>
-                  <option value="None">None</option>
+                  <option value="read">Read</option>
+                  <option value="none">None</option>
                 </select>
               </div>
             </div>
@@ -41,4 +50,4 @@ class CurentlyReading extends Component {
   }
 }
 
-export default CurentlyReading
+export default CurrentlyReading
