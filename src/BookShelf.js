@@ -35,6 +35,12 @@ function BookShelf (props) {
           </ul>
         </section>
       )}
+      <a
+        href="#add"
+        onClick={() => props.onAddBooks()}
+        className="add-button">
+        Search
+      </a>
     </div>
 
 

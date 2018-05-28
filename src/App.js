@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import BookShelf from './BookShelf'
-// import WantToRead from './WantToRead'
-// import Read from './Read'
+import AddBooks from './AddBooks'
 import './App.css';
 import * as BooksAPI from './utils/BooksAPI.js'
 
 class App extends Component {
   state = {
+    screen: 'shelves', // shelves, add
     books: []
   }
 
@@ -20,8 +20,7 @@ class App extends Component {
   }
 
   changeShelf = (book, shelf) => {
-    console.log(book.id, shelf)
-    BooksAPI.update(book.id, shelf)
+    BooksAPI.update({id: book.id}, shelf)
     .then(response => {
       this.updateShelves();
     })
@@ -36,18 +35,32 @@ class App extends Component {
     })
   }
 
+  addBooks = () => {
+    this.setState({ screen: 'add' })
+  }
+
+  backButton = () => {
+    this.setState({ screen: 'screen' })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="bookshelf-title">
           <h1 className="title">My Reads</h1>
         </header>
+        {this.state.screen === 'shelves' && (
+          <BookShelf
+            onChangeShelf={this.changeShelf}
+            books={this.state.books}
+            onAddBooks={this.addBooks()}
+          />
+        )}
+        {this.state.screen === 'add' && (
+          <AddBooks />
+        )}
 
-        <BookShelf onChangeShelf={this.changeShelf} books={this.state.books}/>
 
-        <div className="add-button">
-          <a>Search</a>
-        </div>
       </div>
     );
   }
