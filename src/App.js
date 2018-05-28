@@ -1,28 +1,50 @@
 import React, { Component } from 'react';
-import CurrentlyReading from './CurrentlyReading'
-import WantToRead from './WantToRead'
-import Read from './Read'
+import BookShelf from './BookShelf'
+// import WantToRead from './WantToRead'
+// import Read from './Read'
 import './App.css';
+import * as BooksAPI from './utils/BooksAPI.js'
 
 class App extends Component {
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll()
+    .then((books) => {
+      this.setState({
+        books
+      })
+    })
+  }
+
+  changeShelf = (book, shelf) => {
+    console.log(book.id, shelf)
+    BooksAPI.update(book.id, shelf)
+    .then(response => {
+      this.updateShelves();
+    })
+  }
+
+  updateShelves() {
+    BooksAPI.getAll()
+    .then((books) => {
+      this.setState({
+        books
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="bookshelf-title">
           <h1 className="title">My Reads</h1>
         </header>
-        <section className="shelf-title">
-          <h2>Currently Reading</h2>
-          <CurrentlyReading />
-        </section>
-        <section className="shelf-title">
-          <h2>Want to Read</h2>
-          <WantToRead />
-        </section>
-        <section className="shelf-title">
-          <h2>Read</h2>
-          <Read />
-        </section>
+
+        <BookShelf onChangeShelf={this.changeShelf} books={this.state.books}/>
+
         <div className="add-button">
           <a>Search</a>
         </div>
