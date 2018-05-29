@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function BookShelf (props) {
+
   const shelves = ['currentlyReading', 'wantToRead', 'read']
 
   function generateShelfName(shelf) {
@@ -24,28 +26,23 @@ function BookShelf (props) {
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      <option value="none">Remove from Bookshelf</option>
                     </select>
                   </div>
                 </div>
                 <p>{book.title}</p>
-                <p><span className="gray-text">{book.authors[0]}</span></p>
+                {book.authors && <p><span className="gray-text">{book.authors[0]}</span></p> }
               </li>
             ))}
           </ul>
         </section>
       )}
-      <a
-        href="#add"
-        onClick={() => props.onAddBooks()}
+      <Link
+        to="/search"
         className="add-button">
         Search
-      </a>
+      </Link>
     </div>
-
-
-
-
 
   )
 }

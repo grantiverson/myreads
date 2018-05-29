@@ -78,3 +78,26 @@ option {
   box-shadow: 3px 3px 5px #bbb;
   font-size: 0;
 }
+.search-bar {
+  box-shadow: 3px 3px 5px #bbb;
+  overflow: auto;
+  padding: 10px;
+}
+.search-bar input {
+  margin-left: 20px;
+  height: 30px;
+  width: calc(100% - 54px);
+  border: none;
+  float: left;
+  font-size: 1.3em;
+}
+.back-button {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-image: url('./icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 0;
+  float: left;
+}

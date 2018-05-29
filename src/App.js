@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import BookShelf from './BookShelf'
-import AddBooks from './AddBooks'
-import './App.css';
+import SearchBooks from './SearchBooks'
+import './App.css'
 import * as BooksAPI from './utils/BooksAPI.js'
 
 class App extends Component {
@@ -35,32 +36,24 @@ class App extends Component {
     })
   }
 
-  addBooks = () => {
-    this.setState({ screen: 'add' })
-  }
-
-  backButton = () => {
-    this.setState({ screen: 'screen' })
-  }
-
   render() {
     return (
       <div className="App">
         <header className="bookshelf-title">
           <h1 className="title">My Reads</h1>
         </header>
-        {this.state.screen === 'shelves' && (
+        <Route exact path="/" render = {() => (
           <BookShelf
             onChangeShelf={this.changeShelf}
             books={this.state.books}
-            onAddBooks={this.addBooks()}
           />
-        )}
-        {this.state.screen === 'add' && (
-          <AddBooks />
-        )}
-
-
+        )}/>
+        <Route path="/search" render = {() => (
+          <SearchBooks
+            onChangeShelf={this.changeShelf}
+            booksOnShelf={this.state.books}
+          />
+        )}/>
       </div>
     );
   }
