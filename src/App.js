@@ -7,7 +7,6 @@ import * as BooksAPI from './utils/BooksAPI.js'
 
 class App extends Component {
   state = {
-    screen: 'shelves', // shelves, add
     books: []
   }
 

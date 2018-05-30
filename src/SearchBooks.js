@@ -6,7 +6,8 @@ import * as BooksAPI from './utils/BooksAPI.js'
 class SearchBooks extends Component {
   state = {
     query: '',
-    books: []
+    books: [],
+    searchError: false
   }
 
   updateQuery = query => {
@@ -27,11 +28,16 @@ class SearchBooks extends Component {
           })
         })
         this.setState({
-          books
+          books: books,
+          searchError: false
         })
       })
       .catch(error => {
-        console.log(error)
+        this.setState({
+          books: [],
+          searchError: true
+        })
+        console.log(this.state.searchError)
       })
     }
   }
@@ -39,18 +45,6 @@ class SearchBooks extends Component {
 
 
   render() {
-    const { books, query } = this.state
-
-    let showingBooks = books
-
-    if (showingBooks.error === 'empty query') {
-      showingBooks = [{
-        'id': 0,
-        'title': 'No books found',
-        'authors': ['Try another search']
-      }]
-    }
-
     return (
       <div>
         <div className="search-bar">
@@ -62,20 +56,28 @@ class SearchBooks extends Component {
           <input
             type="text"
             placeholder="Search by title or author"
-            value={query}
+            value={this.state.query}
             onChange={event => this.updateQuery(event.target.value)}
           >
           </input>
         </div>
 
         <ul className="books-list">
-          {showingBooks.map(book => (
-            <Book
-              onChangeShelf={this.props.onChangeShelf}
-              book={book}
-              shelf={book.shelf}
-            />
-          ))}
+          {this.state.searchError === true && (
+            <div className="search-error">
+              Your search did not match any books
+            </div>
+          )}
+          {this.state.searchError === false && (
+            this.state.books.map(book => (
+              <Book
+                onChangeShelf={this.props.onChangeShelf}
+                book={book}
+                shelf={book.shelf}
+                key={book.id}
+              />
+            ))
+          )}
         </ul>
       </div>
     )

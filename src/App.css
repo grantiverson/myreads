@@ -101,3 +101,8 @@ option {
   font-size: 0;
   float: left;
 }
+.search-error {
+  padding-top: 30px;
+  color: red;
+  font-size: 1.2em;
+}
