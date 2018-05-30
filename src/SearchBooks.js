@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Book from './Book'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './utils/BooksAPI.js'
 
@@ -8,23 +9,36 @@ class SearchBooks extends Component {
     books: []
   }
 
-  updateQuery = (query) => {
-    if (!query) {
-      query = ' '
-    }
-    this.setState({ query: query.trim() })
-    BooksAPI.search(query)
-    .then((books) => {
+  updateQuery = query => {
+    this.setState({ query })
+    if (!query || (query === '')) {
       this.setState({
-        books
+        books: []
       })
-    })
+    } else {
+      BooksAPI.search(query)
+      .then(books => {
+        books.map(book => {
+          book.shelf = 'none',
+          this.props.booksOnShelf.forEach(bookOnShelf => {
+            book.id === bookOnShelf.id && (
+              book.shelf = bookOnShelf.shelf
+            )
+          })
+        })
+        this.setState({
+          books
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
   }
 
 
 
   render() {
-    const { onChangeShelf, booksOnShelf } = this.props
     const { books, query } = this.state
 
     let showingBooks = books
@@ -36,21 +50,6 @@ class SearchBooks extends Component {
         'authors': ['Try another search']
       }]
     }
-
-    function checkForImg(book) {
-      if (!book.imageLinks) {
-        return book.imageLinks = 'https://via.placeholder.com/128x170/ff7f7f/333333?text=NoImage'
-      }
-    }
-
-    showingBooks.map(book => {
-      book.shelf = 'none',
-      booksOnShelf.forEach(bookOnShelf => {
-        book.id === bookOnShelf.id && (
-          book.shelf = bookOnShelf.shelf
-        )
-      })
-    })
 
     return (
       <div>
@@ -64,28 +63,18 @@ class SearchBooks extends Component {
             type="text"
             placeholder="Search by title or author"
             value={query}
-            onChange={(event) => this.updateQuery(event.target.value)}
+            onChange={event => this.updateQuery(event.target.value)}
           >
           </input>
         </div>
 
         <ul className="books-list">
-          {showingBooks.map((book, index) => (
-            checkForImg(book),
-            <li className="book-details" key={book.id}>
-              <div className="book-image" style={{backgroundImage: "url(" + book.imageLinks.smallThumbnail + ")"}}>
-                <div className="status-selector">
-                  <select value={book.shelf} onChange={(e) => onChangeShelf(book, e.target.value)}>
-                    <option value="none" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                  </select>
-                </div>
-              </div>
-              <p>{book.title}</p>
-              {book.authors && <p><span className="gray-text">{book.authors[0]}</span></p> }
-            </li>
+          {showingBooks.map(book => (
+            <Book
+              onChangeShelf={this.props.onChangeShelf}
+              book={book}
+              shelf={book.shelf}
+            />
           ))}
         </ul>
       </div>
