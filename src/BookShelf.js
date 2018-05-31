@@ -11,6 +11,7 @@ class BookShelf extends Component {
   }
 
   render() {
+    const {books, onChangeShelf}  = this.props
     const shelves = ['currentlyReading', 'wantToRead', 'read']
 
     return(
@@ -19,10 +20,10 @@ class BookShelf extends Component {
           <section className="shelf-title" key={index}>
             <h2>{this.generateShelfName(shelf)}</h2>
             <ul className="books-list">
-              {this.props.books.filter(book => book.shelf === shelf)
+              {books.filter(book => book.shelf === shelf)
               .map(book => (
                 <Book
-                  onChangeShelf={this.props.onChangeShelf}
+                  onChangeShelf={onChangeShelf}
                   book={book}
                   shelf={shelf}
                   key={book.id}

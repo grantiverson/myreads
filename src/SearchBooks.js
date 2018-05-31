@@ -45,6 +45,9 @@ class SearchBooks extends Component {
 
 
   render() {
+    const {query, searchError, books}  = this.state
+    const {onChangeShelf}  = this.props
+
     return (
       <div>
         <div className="search-bar">
@@ -56,22 +59,22 @@ class SearchBooks extends Component {
           <input
             type="text"
             placeholder="Search by title or author"
-            value={this.state.query}
+            value={query}
             onChange={event => this.updateQuery(event.target.value)}
           >
           </input>
         </div>
 
         <ul className="books-list">
-          {this.state.searchError === true && (
+          {searchError === true && (
             <div className="search-error">
               Your search did not match any books
             </div>
           )}
-          {this.state.searchError === false && (
-            this.state.books.map(book => (
+          {searchError === false && (
+            books.map(book => (
               <Book
-                onChangeShelf={this.props.onChangeShelf}
+                onChangeShelf={onChangeShelf}
                 book={book}
                 shelf={book.shelf}
                 key={book.id}
