@@ -4,7 +4,7 @@ I created this website as a project for my Front-End Web Development Nanodegree 
 
 ## Run live
 
-Run it live at [iverson-myreads.herokuapp.com/](https://iverson-myreads.herokuapp.com/)
+~Run it live at [iverson-myreads.herokuapp.com/](https://iverson-myreads.herokuapp.com/)~
 
 ## Download
 
